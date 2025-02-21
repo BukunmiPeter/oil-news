@@ -47,6 +47,9 @@ const fetchNews = async () => {
   await News.deleteMany({ title: { $in: newTitles } });
 
   await News.insertMany(newsArticles);
+
+  // await News.deleteMany({});
+  // await News.insertMany(newsArticles);
   console.log("📰 News updated in the database");
 };
 
