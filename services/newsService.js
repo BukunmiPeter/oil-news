@@ -32,7 +32,9 @@ const fetchNews = async () => {
           source: source.url,
           publishedAt: new Date(item.pubDate),
           image:
-            item.enclosure?.url || extractImage(item["content:encoded"]) || "",
+            item.enclosure?.url ||
+            extractImage(item["content:encoded"]) ||
+            "https://images.rigzone.com/images/news/articles/USA-EIA-Forecasts-Gasoline-Price-Drop-in-2025-and-2026-179690-582x327.webp",
         });
       });
     } catch (error) {
