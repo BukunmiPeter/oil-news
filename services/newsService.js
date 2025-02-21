@@ -55,7 +55,7 @@ const fetchNews = async () => {
 
 const getNews = async (query = {}) => {
   const data = await News.find(query).sort({ publishedAt: -1 });
-  return data;
+  return { data };
 };
 
 const translateNews = async (newsArray, targetLang) => {
