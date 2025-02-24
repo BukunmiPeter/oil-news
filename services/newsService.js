@@ -96,9 +96,9 @@ const getNews = async (query = {}) => {
   // Format the publishedAt date for each article
   const formattedData = data.map((article) => {
     const publishedAt = new Date(article.publishedAt);
-    const formattedDate = `${
+    const formattedDate = `${publishedAt.getDate()}/${
       publishedAt.getMonth() + 1
-    }/${publishedAt.getDate()}/${publishedAt.getFullYear()}`;
+    }/${publishedAt.getFullYear()}`;
 
     return {
       ...article.toObject(), // Convert the Mongoose document to a plain object
