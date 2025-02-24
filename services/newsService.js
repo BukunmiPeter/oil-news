@@ -15,6 +15,33 @@ const newsSources = [
   },
 ];
 
+const extractSourceName = (url) => {
+  try {
+    const hostname = new URL(url).hostname;
+    const name = hostname.replace("www.", "").split(".")[0];
+    return name.replace(/-/g, "");
+  } catch (error) {
+    console.error(
+      `Error extracting source name from URL ${url}:`,
+      error.message
+    );
+    return "unknown";
+  }
+};
+
+const getDefaultImage = (category) => {
+  const images = {
+    Upstream:
+      "https://www.oilandgas360.com/wp-content/uploads/2025/02/midstream-1024x683.jpg",
+    Downstream: "https://example.com/downstream-image.jpg",
+    Maritime: "https://example.com/maritime-image.jpg",
+  };
+  return (
+    images[category] ||
+    "https://images.rigzone.com/images/news/articles/USA-EIA-Forecasts-Gasoline-Price-Drop-in-2025-and-2026-179690-582x327.webp"
+  );
+};
+
 const fetchNews = async () => {
   const parserInstance = new parser();
   let newsArticles = [];
@@ -29,12 +56,12 @@ const fetchNews = async () => {
           summary: item.contentSnippet,
           link: item.link,
           category: source.category,
-          source: source.url,
+          source: extractSourceName(source.url),
           publishedAt: new Date(item.pubDate),
           image:
             item.enclosure?.url ||
             extractImage(item["content:encoded"]) ||
-            "https://images.rigzone.com/images/news/articles/USA-EIA-Forecasts-Gasoline-Price-Drop-in-2025-and-2026-179690-582x327.webp",
+            getDefaultImage(source.category),
         });
       });
     } catch (error) {
@@ -46,10 +73,10 @@ const fetchNews = async () => {
 
   await News.deleteMany({ title: { $in: newTitles } });
 
-  await News.insertMany(newsArticles);
+  await News.insertMany(
+    newsArticles.sort((a, b) => b.publishedAt - a.publishedAt)
+  );
 
-  // await News.deleteMany({});
-  // await News.insertMany(newsArticles);
   console.log("📰 News updated in the database");
 };
 
