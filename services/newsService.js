@@ -90,18 +90,22 @@ const fetchNews = async () => {
 const getNews = async (query = {}) => {
   const data = await News.find(query).sort({ publishedAt: -1 });
 
-  // Format the publishedAt date for each article and convert it to a valid Date object
   const formattedData = data.map((article) => {
-    const publishedAt = new Date(article.publishedAt); // Convert the string to a Date object
+    const publishedAt = new Date(article.publishedAt);
 
-    // Format the date as MM/DD/YYYY (if necessary)
     const formattedDate = `${publishedAt.getDate()}/${
       publishedAt.getMonth() + 1
     }/${publishedAt.getFullYear()}`;
 
+    const truncatedTitle =
+      article.title.length > 90
+        ? article.title.slice(0, 90) + "..."
+        : article.title;
+
     return {
-      ...article.toObject(), // Convert the Mongoose document to a plain object
-      publishedAt: formattedDate, // Updated to the formatted date (as string)
+      ...article.toObject(),
+      publishedAt: formattedDate,
+      title: truncatedTitle,
     };
   });
 
