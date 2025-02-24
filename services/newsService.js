@@ -53,11 +53,8 @@ const fetchNews = async () => {
       const feed = await parserInstance.parseURL(source.url);
 
       feed.items.forEach((item) => {
-        // Format the publishedAt date manually as MM/DD/YYYY
-        const publishedAt = new Date(item.pubDate);
-        const formattedDate = `${publishedAt.getDate()}/${
-          publishedAt.getDate() + 1
-        }/${publishedAt.getFullYear()}`;
+        // Format the publishedAt date
+        const publishedAt = new Date(item.pubDate).toLocaleDateString("en-US");
 
         newsArticles.push({
           title: item.title,
@@ -65,7 +62,7 @@ const fetchNews = async () => {
           link: item.link,
           category: source.category,
           source: extractSourceName(source.url),
-          publishedAt: formattedDate, // Updated to the formatted date
+          publishedAt, // Updated to the formatted date
           image:
             item.enclosure?.url ||
             extractImage(item["content:encoded"]) ||
@@ -93,16 +90,18 @@ const fetchNews = async () => {
 const getNews = async (query = {}) => {
   const data = await News.find(query).sort({ publishedAt: -1 });
 
-  // Format the publishedAt date for each article
+  // Format the publishedAt date for each article and convert it to a valid Date object
   const formattedData = data.map((article) => {
-    const publishedAt = new Date(article.publishedAt);
-    const formattedDate = `${publishedAt.getDate()}/${
+    const publishedAt = new Date(article.publishedAt); // Convert the string to a Date object
+
+    // Format the date as MM/DD/YYYY (if necessary)
+    const formattedDate = `${
       publishedAt.getMonth() + 1
-    }/${publishedAt.getFullYear()}`;
+    }/${publishedAt.getDate()}/${publishedAt.getFullYear()}`;
 
     return {
       ...article.toObject(), // Convert the Mongoose document to a plain object
-      publishedAt: formattedDate, // Update the publishedAt field
+      publishedAt: formattedDate, // Updated to the formatted date (as string)
     };
   });
 
