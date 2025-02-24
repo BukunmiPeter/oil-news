@@ -53,8 +53,11 @@ const fetchNews = async () => {
       const feed = await parserInstance.parseURL(source.url);
 
       feed.items.forEach((item) => {
-        // Format the publishedAt date
-        const publishedAt = new Date(item.pubDate).toLocaleDateString("en-US");
+        // Format the publishedAt date manually as MM/DD/YYYY
+        const publishedAt = new Date(item.pubDate);
+        const formattedDate = `${
+          publishedAt.getMonth() + 1
+        }/${publishedAt.getDate()}/${publishedAt.getFullYear()}`;
 
         newsArticles.push({
           title: item.title,
@@ -62,7 +65,7 @@ const fetchNews = async () => {
           link: item.link,
           category: source.category,
           source: extractSourceName(source.url),
-          publishedAt, // Updated to the formatted date
+          publishedAt: formattedDate, // Updated to the formatted date
           image:
             item.enclosure?.url ||
             extractImage(item["content:encoded"]) ||
