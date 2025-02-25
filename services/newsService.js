@@ -88,12 +88,12 @@ const fetchNews = async () => {
   console.log("📰 News updated in the database");
 };
 
-const getLatestNewsService = async (req, res) => {
+const getLatestNewsService = async () => {
   try {
     const latestNews = await News.findOne().sort({ publishedAt: -1 });
 
     if (!latestNews) {
-      return res.status(404).json({ message: "No news found" });
+      return { status: 404, message: "No news found" };
     }
 
     const publishedAt = new Date(latestNews.publishedAt);
@@ -111,9 +111,9 @@ const getLatestNewsService = async (req, res) => {
       title: truncatedTitle,
     };
 
-    res.status(200).json(formattedNews);
+    return { status: 200, news: formattedNews };
   } catch (error) {
-    res.status(500).json({ message: "Error fetching latest news", error });
+    return { status: 500, message: "Error fetching latest news", error };
   }
 };
 

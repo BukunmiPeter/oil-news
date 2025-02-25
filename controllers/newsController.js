@@ -7,13 +7,17 @@ const {
 
 const getLatestNews = async (req, res) => {
   try {
-    const latestNews = await getLatestNewsService();
-    res.status(200).json(latestNews);
+    const result = await getLatestNewsService(); // Call the service
+
+    if (result.status === 200) {
+      res.status(200).json(result.news); // Send the latest news if successful
+    } else {
+      res.status(result.status).json({ message: result.message }); // Handle error if no news found or any other error
+    }
   } catch (error) {
     res.status(500).json({ message: "Error fetching latest news", error });
   }
 };
-
 const getAllNews = async (req, res) => {
   try {
     const news = await getNews();
