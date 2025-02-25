@@ -17,7 +17,7 @@ const startServer = async () => {
 
     // Fetch news initially and set interval for periodic updates
     fetchNews();
-    setInterval(fetchNews, 60 * 60 * 1000); // Fetch news every 1 hour
+    // setInterval(fetchNews, 60 * 60 * 1000); // Fetch news every 1 hour
 
     const server = app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
