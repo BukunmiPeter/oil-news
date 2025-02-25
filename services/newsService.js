@@ -139,7 +139,9 @@ const getNews = async (query = {}) => {
     };
   });
 
-  return { data: filteredData };
+  // Omit the first news item
+
+  return { data: formattedData };
 };
 const translateNews = async (newsArray, targetLang) => {
   const translatedNews = await Promise.all(
