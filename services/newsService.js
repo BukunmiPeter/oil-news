@@ -10,24 +10,10 @@ const newsSources = [
     category: "Upstream",
   },
   { url: "https://www.oilandgas360.com/feed/", category: "Downstream" },
-  { url: "https://www.petroleoenergia.com.br/feed/", category: "Upstream" }, // Brazilian upstream news
-  { url: "https://www.brasilenergia.com.br/rss", category: "Downstream" }, // Brazilian downstream news
-  { url: "https://www.oilreviewmiddleeast.com/rss", category: "Maritime" }, // Middle East maritime news
-  { url: "https://www.offshore-mag.com/rss", category: "Maritime" }, // Offshore magazine
+
   { url: "https://www.energyvoice.com/feed/", category: "Upstream" }, // Energy Voice
-  { url: "https://www.oilfieldtechnology.com/rss", category: "Upstream" }, // Oilfield Technology
-  { url: "https://www.worldoil.com/rss", category: "Upstream" }, // World Oil
-  { url: "https://www.oilgasmonitor.com/rss", category: "Upstream" }, // Oil & Gas Monitor
-  { url: "https://www.oilreviewafrica.com/rss", category: "Upstream" }, // Oil Review Africa
-  { url: "https://www.oilgasnews.com/rss", category: "Upstream" }, // Oil & Gas News
-  { url: "https://www.oilgasdaily.com/rss", category: "Upstream" }, // Oil & Gas Daily
-  { url: "https://www.oilgasjournal.com/rss", category: "Upstream" }, // Oil & Gas Journal
-  { url: "https://www.oilgasadvancement.com/rss", category: "Upstream" }, // Oil & Gas Advancement
+
   { url: "https://www.oilgas360.com/rss", category: "Upstream" }, // Oil & Gas 360
-  { url: "https://www.oilfieldnews.com/rss", category: "Upstream" }, // Oilfield News
-  { url: "https://www.oilfieldtechnology.com/rss", category: "Upstream" }, // Oilfield Technology
-  { url: "https://www.oilreviewasia.com/rss", category: "Upstream" }, // Oil Review Asia
-  { url: "https://www.oilreviewasia.com/rss", category: "Upstream" }, // Oil Review Asia
 ];
 
 const extractSourceName = (url) => {
