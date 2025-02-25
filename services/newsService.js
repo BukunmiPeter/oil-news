@@ -52,7 +52,6 @@ const fetchNews = async () => {
   for (const source of newsSources) {
     try {
       const feed = await parserInstance.parseURL(source.url);
-      console.log("fff", feed);
       feed.items.forEach((item) => {
         // Format the publishedAt date
         const publishedAt = new Date(item.pubDate).toLocaleDateString("en-US");
