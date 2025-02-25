@@ -20,8 +20,9 @@ const getLatestNews = async (req, res) => {
 };
 const getAllNews = async (req, res) => {
   try {
-    const news = await getNews();
-    res.json(news);
+    // Get all news excluding the latest one
+    const news = await getNews({ excludeLatest: true });
+    res.json(news); // Return the filtered news
   } catch (error) {
     res.status(500).json({ message: "Error fetching news", error });
   }

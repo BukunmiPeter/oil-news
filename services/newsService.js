@@ -139,9 +139,6 @@ const getNews = async (query = {}) => {
     };
   });
 
-  // Omit the first news item
-  const filteredData = formattedData.slice(1);
-
   return { data: filteredData };
 };
 const translateNews = async (newsArray, targetLang) => {
