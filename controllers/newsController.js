@@ -1,5 +1,18 @@
 const News = require("../models/newsModel");
-const { getNews, translateNews } = require("../services/newsService");
+const {
+  getNews,
+  translateNews,
+  getLatestNewsService,
+} = require("../services/newsService");
+
+const getLatestNews = async (req, res) => {
+  try {
+    const latestNews = await getLatestNewsService();
+    res.status(200).json(latestNews);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching latest news", error });
+  }
+};
 
 const getAllNews = async (req, res) => {
   try {
@@ -46,4 +59,5 @@ module.exports = {
   getNewsByKeyword,
   getNewsByCategory,
   translateNewsContent,
+  getLatestNews,
 };

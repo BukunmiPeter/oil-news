@@ -102,6 +102,35 @@ const fetchNews = async () => {
   console.log("📰 News updated in the database");
 };
 
+const getLatestNewsService = async (req, res) => {
+  try {
+    const latestNews = await News.findOne().sort({ publishedAt: -1 });
+
+    if (!latestNews) {
+      return res.status(404).json({ message: "No news found" });
+    }
+
+    const publishedAt = new Date(latestNews.publishedAt);
+    const formattedDate = `${publishedAt.getDate()}/${
+      publishedAt.getMonth() + 1
+    }/${publishedAt.getFullYear()}`;
+    const truncatedTitle =
+      latestNews.title.length > 80
+        ? latestNews.title.slice(0, 80) + "..."
+        : latestNews.title;
+
+    const formattedNews = {
+      ...latestNews.toObject(),
+      publishedAt: formattedDate,
+      title: truncatedTitle,
+    };
+
+    res.status(200).json(formattedNews);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching latest news", error });
+  }
+};
+
 const getNews = async (query = {}) => {
   const data = await News.find(query).sort({ publishedAt: -1 });
 
@@ -124,9 +153,11 @@ const getNews = async (query = {}) => {
     };
   });
 
-  return { data: formattedData };
-};
+  // Omit the first news item
+  const filteredData = formattedData.slice(1);
 
+  return { data: filteredData };
+};
 const translateNews = async (newsArray, targetLang) => {
   const translatedNews = await Promise.all(
     newsArray.map(async (news) => {
@@ -153,4 +184,4 @@ const extractImage = (htmlContent) => {
   return match ? match[1] : ""; // Return the image src if found, otherwise an empty string
 };
 
-module.exports = { fetchNews, getNews, translateNews };
+module.exports = { fetchNews, getNews, translateNews, getLatestNewsService };
