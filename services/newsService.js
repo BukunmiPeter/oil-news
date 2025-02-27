@@ -14,7 +14,10 @@ const newsSources = [
     category: "Downstream",
   },
 
-  // { url: "https://www.offshore-energy.biz/feed/", category: "Maritime" },
+  {
+    url: "https://fetchrss.com/rss/67c06144d462b7ffd704eb4367c06c3b9e01eecba10217b2.xml",
+    category: "Maritime",
+  },
   // {
   //   url: "https://www.rigzone.com/news/rss/rigzone_latest.aspx",
   //   category: "Upstream",
