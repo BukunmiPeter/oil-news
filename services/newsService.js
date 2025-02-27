@@ -4,75 +4,26 @@ const { Translate } = require("@google-cloud/translate").v2;
 const translate = new Translate();
 
 const newsSources = [
-  // Upstream - Brazil
   {
-    url: "https://news.google.com/search?q=petroleo%20pre%20sal%20ppsa%20-vagas&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
+    url: "https://fetchrss.com/rss/67c06144d462b7ffd704eb4367c060783aad6d3a48087772.rss",
     category: "Upstream",
-  },
-  {
-    url: "https://news.google.com/search?q=FPSO%20Brasil&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Upstream",
-  },
-  {
-    url: "https://news.google.com/search?q=petrobras&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Upstream",
-  },
-  {
-    url: "https://news.google.com/search?q=Petroleo%20Brasileiro&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Upstream",
-  },
-  {
-    url: "https://www.gov.br/anp/pt-br/canais_atendimento/imprensa/noticias-comunicados",
-    category: "Upstream",
-  },
-  {
-    url: "https://agenciabrasil.ebc.com.br/tags/petroleo",
-    category: "Upstream",
-  },
-  { url: "https://www.offshore-energy.biz/?s=brazil", category: "Upstream" },
-  {
-    url: "https://www.cnnbrasil.com.br/tudo-sobre/petroleo/",
-    category: "Upstream",
-  },
-  { url: "https://agencia.petrobras.com.br/negocio", category: "Upstream" },
-  { url: "https://petronoticias.com.br/category/og/", category: "Upstream" },
-
-  // Maritime - Brazil
-  {
-    url: "https://transpetro.com.br/transpetro-institucional/noticias/",
-    category: "Maritime",
-  },
-  {
-    url: "https://news.google.com/search?q=ship%20to%20ship%20transbordo&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Maritime",
-  },
-  { url: "https://www.gov.br/antaq/pt-br/noticias", category: "Maritime" },
-  {
-    url: "https://news.google.com/search?q=porto%20de%20acu%20brasil&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Maritime",
   },
 
-  // Refining & Downstream - Brazil
   {
-    url: "https://news.google.com/search?q=gasolina%20brasil&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
+    url: "https://fetchrss.com/rss/67c06144d462b7ffd704eb4367c065e7557d6dd9010c54b2.xml",
     category: "Downstream",
   },
-  {
-    url: "https://news.google.com/search?q=diesel%20brasil&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Downstream",
-  },
-  {
-    url: "https://news.google.com/search?q=ethanol%20brasil&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Downstream",
-  },
-  {
-    url: "https://news.google.com/search?q=refino%20brasil&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Downstream",
-  },
-  {
-    url: "https://news.google.com/search?q=acelen%20brasil&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-    category: "Downstream",
-  },
+
+  // { url: "https://www.offshore-energy.biz/feed/", category: "Maritime" },
+  // {
+  //   url: "https://www.rigzone.com/news/rss/rigzone_latest.aspx",
+  //   category: "Upstream",
+  // },
+  // { url: "https://www.oilandgas360.com/feed/", category: "Downstream" },
+
+  // { url: "https://www.energyvoice.com/feed/", category: "Upstream" }, // Energy Voice
+
+  // { url: "https://www.oilgas360.com/rss", category: "Upstream" }, // Oil & Gas 360
 ];
 
 const extractSourceName = (url) => {
